@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    color: #1b1c1e;;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{    
+    width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+    background-color: #fff;
+}
+
+form input{
+    font-size: 12px;
+}
+
+/* login page */
+.login_page, .reg_page{
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.login_page .hero_image, .reg_page .hero_image{
+    height: 100%;
+    width: 55%;
+    overflow: hidden;
+}
+
+.login_page .hero_image img, .reg_page .hero_image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.login_page div.logo{
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.form_area{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.reg_page div.logo{
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.reg_page{
+    overflow-y: auto;
+}
+
+.login_page div.logo img, .reg_page div.logo img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.login_fp a, .login_to_register{
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login_footer{
+    font-size: 12px;
+}
+
+.homepage{
+    padding: 0 20px;
+}
+
+.homepage a.web_logo{
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.homepage a.web_logo div{
+    height: 35px;
+    width: 35px;
+    overflow: hidden;
+}
+
+.homepage a.web_logo div img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.homepage a.web_logo p{
+    margin: 0;
+    padding: 0;
+}
+
+.homepage a.nav-link{
+    font-size: 14px;
+    transition: .3s;
+}
+
+.homepage a.nav-link:hover{
+    transform: scale(1.02);
+}
+
+#hamburger_btn{
+    border: none;
+    outline: none;
+    transition: .3s;
+    padding: 1px;
+}
+
+#hamburger_btn:focus, #hamburger_btn:hover{
+    outline: none;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard_content{
+    gap: 10px;
+    display: flex;
+    margin-top: 60px;
+}
+
+.sidebar{
+    width: 230px;
+    height: calc(100vh - 94px);
+    padding: 20px 0 20px 0;
+    background-color: rgb(10, 124, 238);
+}
+
+.sidebar ul{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.siderbar_active{
+    background-color: #1b1c1e;
+}
+
+.sidebar ul li{
+    padding: 5px 20px;
+    transition: .3s ease-in-out;
+}
+
+.sidebar ul li a{
+    display: flex;
+    align-items: center;
+}
+
+.sidebar ul li:hover{
+    background-color: #022772;
+}
+
+.sidebar li i, .sidebar li a, .sidebar li p{
+    color: #fff;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.sidebar li i{
+    width: 25px;
+}
+
+.dashboard_content .content{
+    width: calc(100% - 220px);
+    overflow-x: hidden;
+    height: calc(100vh - 95px);
+}
+
+.content h6{
+    background-color: rgb(241, 241, 241);
+    border-left: 3px solid rgb(88, 255, 163);
+    padding: 5px 10px;
+}
+
+table{
+    width: 100%;
+}
+
+table tr th, table tr td{
+    font-size: 14px;
+}
+
+.home_footer{
+    width: 100%;
+    text-align: center;
+    background-color: #1b1c1e;
+    color: #fff;
+    font-size: 9px;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 994px){
+    .login_page .hero_image, .reg_page .hero_image{
+        display: none;
+    }
+
+    .homepage{
+        padding: 0 10px;
+    }
+
+    .homepage .nav-link span{
+        display: none;
+    }
+/*     
+    .sidebar{
+        width: fit-content;
+        padding: 20px 0;
+    }  
+
+    .sidebar ul{
+        padding-top: 20px;
+        gap: 20px;
+    } 
+
+    .sidebar ul li{
+        padding: 5px 10px;
+    } */
+    
+    /* .siderbar_active{
+        padding: 5px 10px;
+    } */
+
+    /* .sidebar ul li a{
+        justify-content: center;
+    }
+
+    .sidebar li p{
+        display: none;
+    }
+    
+    .sidebar li i{
+        width: fit-content;
+    } */
+
+    /* hhh */
+    div.sidebar {
+        position: fixed;
+        top: 56px; /* Adjust this value according to your navbar height */
+        left: 0;
+        width: 230px; /* Adjust this value according to your preferred sidebar width */
+        height: 100%;
+        overflow-y: auto;
+        z-index: 5;
+        transition: transform 0.3s ease;
+        transform: translateX(-100%); /* Initially hide the sidebar */
+    }
+  
+    div.sidebar.show {
+        transform: translateX(0); /* Show the sidebar when the 'show' class is added */
+    }
+
+    .dashboard_content .content{
+        width: 100%;
+        height: calc(100vh - 93.5px);
+    }
+
+    table tr th, table tr td{
+        font-size: 12px;
+    }
+}
