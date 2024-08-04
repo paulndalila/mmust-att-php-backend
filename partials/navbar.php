@@ -13,7 +13,7 @@
             </div>
             <p>Student Dashboard</p>
         </a>
-        <a class="nav-link" href="login.php"><i class="fa-solid fa-right-from-bracket me-1"></i><span>Logout</span></a>
+        <a class="nav-link" href="./partials/logout.php"><i class="fa-solid fa-right-from-bracket me-1"></i><span>Logout</span></a>
 
         <!-- <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
