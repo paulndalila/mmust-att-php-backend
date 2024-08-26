@@ -9,9 +9,7 @@
   include("../db/connect.php");
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if ($application_status === 'Accepted') {
-            echo "<div class='alert alert-danger'>You cannot apply for clearance as your application has been accepted.</div>";
-        } else {
+            $attachee_id = $_SESSION['attachee_id'];
             $department_id = $_POST['department'];
             $comments = $_POST['comments'];
             
@@ -27,7 +25,7 @@
                 
                 // Generate a new name for the file and save the path
                 $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-                $uploadFileDir = './uploads/';
+                $uploadFileDir = '../uploads/';
                 $dest_path = $uploadFileDir . $newFileName;
                 
                 if (move_uploaded_file($fileTmpPath, $dest_path)) {
@@ -38,14 +36,13 @@
             }
 
             try {
-                $stmt = $db->prepare("INSERT INTO clearance (attachee_id, department_id, date, doc_path, status) VALUES (?, ?, NOW(), ?, 'Pending')");
-                $stmt->execute([$attachee_id, $department_id, $doc_path]);
+                $stmt = $db->prepare("INSERT INTO clearance (attachee_id, department_id, date, doc_path, reason, status) VALUES (?, ?, NOW(), ?, ?, 'Pending')");
+                $stmt->execute([$attachee_id, $department_id, $doc_path, $comments]);
                 header('Location: ../clearance.php?msg=Clearance request submitted successfully');
                 exit;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
-        }
     }
 
     $db = null;

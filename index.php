@@ -131,12 +131,12 @@
                             <td><?php echo htmlspecialchars($application['department_name']); ?></td>
                             <td>
                                 <?php
-                                $status_classes = [
-                                    'Pending' => 'bg-secondary',
-                                    'Accepted' => 'bg-success',
-                                    'Declined' => 'bg-danger'
-                                ];
-                                $status_class = $status_classes[$application['status']] ?? 'bg-secondary';
+                                    $status_classes = [
+                                        'Pending' => 'bg-secondary',
+                                        'Accepted' => 'bg-success',
+                                        'Rejected' => 'bg-danger'
+                                    ];
+                                    $status_class = $status_classes[$application['status']] ?? 'bg-secondary';
                                 ?>
                                 <p class="p-1 rounded text-white text-center m-0 <?php echo $status_class; ?>">
                                     <?php echo htmlspecialchars($application['status']); ?>

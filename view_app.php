@@ -91,7 +91,7 @@
                   $status_classes = [
                     'Pending' => 'bg-secondary',
                     'Accepted' => 'bg-success',
-                    'Declined' => 'bg-danger'
+                    'Rejected' => 'bg-danger'
                   ];
                   $status_class = $status_classes[$application['status']] ?? 'bg-secondary';
                 ?>

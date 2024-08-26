@@ -1,40 +1,49 @@
 <?php
-  session_start();
+    session_start();
 
-  if (!isset($_SESSION['attachee_id'])) {
-      header('Location: login.php');
-      exit;
-  }
+    if (!isset($_SESSION['attachee_id'])) {
+        header('Location: login.php');
+        exit;
+    }
 
-  include("./db/connect.php");
+    include("./db/connect.php");
 
-  // Fetching departments from the database
-  $departments = [];
+    // Fetching departments from the database
+    $departments = [];
 
-  try {
-    $stmt = $db->query("SELECT department_id, department_name FROM departments");
-    $departments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-  } 
+    try {
+        $stmt = $db->query("SELECT department_id, department_name FROM departments");
+        $departments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 
-  // Check if the student is an accepted attachee
-  $attachee_id = $_SESSION['attachee_id'];
-  $attachee_status = '';
-  
-  try {
-      $stmt = $db->prepare("SELECT status FROM attachment_applications WHERE attachee_id = ?");
-      $stmt->execute([$attachee_id]);
-      $application = $stmt->fetch(PDO::FETCH_ASSOC);
-  
-      if ($application) {
-          $attachee_status = $application['status'];
-      }
-  } catch (PDOException $e) {
-      echo "Error: " . $e->getMessage();
-  }
+    // Check if the student is an accepted attachee
+    $attachee_id = $_SESSION['attachee_id'];
+    $attachee_status = '';
+    $clearance_status = '';
 
-  $db = null;
+    try {
+        // Check attachment application status
+        $stmt = $db->prepare("SELECT status FROM attachment_applications WHERE attachee_id = ?");
+        $stmt->execute([$attachee_id]);
+        $application = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($application) {
+            $attachee_status = $application['status'];
+        }
+
+        // Check clearance application status
+        $stmt = $db->prepare("SELECT status FROM clearance WHERE attachee_id = ?");
+        $stmt->execute([$attachee_id]);
+        $clearance = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($clearance) {
+            $clearance_status = $clearance['status'];
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
+$db = null;
 ?>
 
 <!-- head, body & navbar -->
@@ -80,11 +89,15 @@
 
             <?php if ($attachee_status !== 'Accepted'): ?>
                 <div class="alert alert-danger">You must be an Active Attachee within MMUST to apply for clearance.</div>
+            <?php elseif ($clearance_status): ?>
+                <div class="alert alert-info">
+                    Your clearance application status: <strong><?php echo htmlspecialchars($clearance_status); ?></strong>
+                </div>
             <?php else: ?>
                 <h6 class="mb-4">Student Clearance Form</h6>
                 <p class="text-center mb-5">Complete the form below to submit your clearance information. Ensure all fields are filled out correctly.</p>
 
-                <form method="POST" enctype="multipart/form-data">
+                <form action="./processes/apply_clearance.php" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="studentId">Attachee ID</label>
